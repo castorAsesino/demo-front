@@ -1,47 +1,46 @@
 import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
-import {useParams} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 import Login from './Login';
 import Header from './Header';
-import Example from './Example';
+
+import Inicio from './Inicio';
+import Navbar from './Navbar';
+import NotFound from './NotFound';
+import Ofertas from './Ofertas';
+import Nosotros from './Nosotros';
 
 export default function App() {
   return (
-    <Router>
-      <div>
-      
+    <>
+
+      <Router>
         <Routes>
-          <Route path="/inicio" element={<Header />} />
-          <Route path="/users" element={<Example />} />
           <Route path="/" element={<Login />} />
-          <Route
-            path="*"
-            element={
-              <div>
-                <h2>404 Page not found etc</h2>
-              </div>
-            }
-          />
+       {/*    <Route path="/ofertas1" element={<Navbar2 />} /> */}
         </Routes>
-      </div>
-    </Router>
+
+        {/* <Alerts className="container" alrt={alert} /> */}
+
+        <Navbar />
+        <Routes>
+          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/ofertas" element={<Ofertas />} />
+          <Route path="/nosotros" element={<Nosotros />} />
+       
+
+          <Route
+             path="*"
+             element={<NotFound />}
+           />
+        </Routes>
+      </Router>
+
+
+    </>
   );
-}
-
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  const params = useParams();
-
-  return <h2>Users: {params.userId}</h2>;
 }
 
