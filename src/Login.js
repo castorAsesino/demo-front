@@ -15,7 +15,6 @@ export default function Login() {
           <div
             className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
             <div className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0" >
-              {/* <div className="flex flex-row items-center justify-center" style={{ backgroundImage: `url(${logo})`, width: `400px`, height: `300px`, backgroundSize: `cover` }} ></div> */}
               <img src={loginImage} className="w-full" />
             </div>
 
@@ -25,18 +24,9 @@ export default function Login() {
                   <div>
                     <img
                       className="mx-auto w-auto"
-                      src={logo} style={{height: `20rem`}}
+                      src={logo} style={{ height: `20rem` }}
                       alt="dress me up"
                     />
-                   {/*  <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-                      Iniciar Sesión
-                    </h2> */}
-                  {/*   <p className="mt-2 text-center text-sm text-gray-600">
-                      Or{' '}
-                      <a href="#" className="font-medium text-pink-600 hover:text-pink-500">
-                        start your 14-day free trial
-                      </a>
-                    </p> */}
                   </div>
                   <form className="mt-8 space-y-6" action="#" method="POST">
                     <input type="hidden" name="remember" defaultValue="true" />
@@ -57,7 +47,7 @@ export default function Login() {
                       </div>
                       <div>
                         <label htmlFor="password" className="sr-only">
-                          contraseña
+                          password
                         </label>
                         <input
                           id="password"
@@ -80,26 +70,26 @@ export default function Login() {
                           className="h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
                         />
                         <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                          Recordarme
+                          Remember me
                         </label>
                       </div>
 
                       <div className="text-sm">
                         <a href="#" className="font-medium text-pink-600 hover:text-pink-500">
-                          Olvide mi contraseña
+                          Forgot Password?
                         </a>
                       </div>
                     </div>
 
                     <div>
-                      <button   onClick={() => navigate('/inicio')}
+                      <button onClick={() => navigate('/home')}
                         type="submit"
                         className="group relative flex w-full justify-center rounded-md border border-transparent bg-pink-600 py-2 px-4 text-sm font-medium text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
                       >
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                           <LockClosedIcon className="h-5 w-5 text-pink-500 group-hover:text-pink-400" aria-hidden="true" />
                         </span>
-                        Ingresar
+                        Login
                       </button>
                     </div>
                   </form>
