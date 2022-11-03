@@ -1,4 +1,4 @@
-import "./styles.scss";
+import "../styles.scss";
 
 
 export default function NotFound() {
@@ -12,11 +12,8 @@ export default function NotFound() {
 
                 <h1>Oops!</h1>
                 <p>
-                    No pudimos encontrar la página que estas buscando.
+                    Sorry, we couldn't find what you're looking for
                     <br />
-                  
-
-
                 </p>
             </div>
         </div>

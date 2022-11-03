@@ -1,10 +1,9 @@
 import { Fragment } from 'react'
-import logo from './assets/img/login1.gif';
-import loginImage from './assets/img/login.jpg';
+import logo from '../assets/img/login1.gif';
+import loginImage from '../assets/img/login.jpg';
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import icono from './assets/img/icon.png';
 
 export default function Login() {
   const navigate = useNavigate();
