@@ -1,83 +1,115 @@
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState, useContext } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import ReactDOM from "react-dom"
+import { BanknotesIcon } from '@heroicons/react/24/outline'
+import ReactDOM from "react-dom";
+import CartContext from '../components/cart/CartContext';
+
+
 export default function Modal(props) {
-    const [showModal, setShowModal] = useState(false);
-    useEffect(()=> {
-       setShowModal(props.showModal);
-    },[props]);
-   
-    return (
-        ReactDOM.createPortal(
-            <>
-            <button
-              className="bg-blue-200 text-black active:bg-blue-500 
-            font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-              type="button"
-              onClick={() => setShowModal(true)}
+  const modalState = props.toggle;
+  const action = props.action
+  const [state, dispatch] = useContext(CartContext);
+  const [totalValue, setTotalValue] = useState(0);
+  console.log(state)
+  const total = () => {
+  setTotalValue(  state.reduce((a, b) => a + ( parseInt(b.amount) * parseInt(b.price)), 0))
+  }
+  useEffect (() => {
+    total();
+  }, [state])
+  return (
+    <Transition.Root show={modalState} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={action}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 overflow-y-auto">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enterTo="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              Fill Details
-            </button>
-            {showModal ? (
-              <>
-                <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                  <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                      <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-                        <h3 className="text-3xl font=semibold">General Info</h3>
-                        <button
-                          className="bg-transparent border-0 text-black float-right"
-                          onClick={() => setShowModal(false)}
-                        >
-                          <span className="text-black opacity-7 h-6 w-6 text-xl block bg-gray-400 py-0 rounded-full">
-                            x
-                          </span>
-                        </button>
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div className="sm:flex sm:items-start">
+                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 sm:mx-0 sm:h-10 sm:w-10">
+                      <BanknotesIcon className="h-6 w-6 text-pink-600" aria-hidden="true" />
+                    </div>
+                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                      <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                        Payment information
+                      </Dialog.Title>
+                      <div className="row mt-2">
+                        <table class="table-fixed">
+                          <thead>
+                            <tr>
+                              <th>Product</th>
+                              <th>Price</th>
+                              <th>Amount</th>
+                              <th>Subtotal</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                            {state.map((item) => (
+
+                              <tr>
+                                <td>{item.name}</td>
+                                <td>{item.price} $</td>
+                                <td>{item.amount}</td>
+                                <td>{parseInt(item.amount) * parseInt(item.price)} $</td>
+                              </tr>
+
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
-                      <div className="relative p-6 flex-auto">
-                        <form className="bg-gray-200 shadow-md rounded px-8 pt-6 pb-8 w-full">
-                          <label className="block text-black text-sm font-bold mb-1">
-                            First Name
-                          </label>
-                          <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                          <label className="block text-black text-sm font-bold mb-1">
-                            Last Name
-                          </label>
-                          <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                          <label className="block text-black text-sm font-bold mb-1">
-                            Address
-                          </label>
-                          <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                          <label className="block text-black text-sm font-bold mb-1">
-                            City
-                          </label>
-                          <input className="shadow appearance-none border rounded w-full py-2 px-1 text-black" />
-                        </form>
-                      </div>
-                      <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                        <button
-                          className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                          type="button"
-                          onClick={() => setShowModal(false)}
-                        >
-                          Close
-                        </button>
-                        <button
-                          className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                          type="button"
-                          onClick={() => setShowModal(false)}
-                        >
-                          Submit
-                        </button>
-                      </div>
+                      <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                        TOTAL:  {totalValue} $
+                      </Dialog.Title>
+                            
                     </div>
                   </div>
                 </div>
-              </>
-            ) : null}
-          </>, document.querySelector('#modal-portal')
-        )
 
-    )
+
+                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <button
+                    type="button"
+                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-pink-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={action}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    onClick={action}
+
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
+      </Dialog>
+    </Transition.Root >
+
+  )
 }

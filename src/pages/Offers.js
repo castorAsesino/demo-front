@@ -1,7 +1,5 @@
 import { products } from "../utils/categories";
 import { ShoppingBagIcon } from '@heroicons/react/20/solid';
-import Input from "../components/Layout/Input";
-import Modal from "./Modal";
 import Product from "./Product"
 import React, { useRef, useState, useReducer } from "react";
 import { CartReducer } from "../components/cart/CartReducer";

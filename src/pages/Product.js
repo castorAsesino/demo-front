@@ -1,7 +1,6 @@
 import { products } from "../utils/categories";
 import { ShoppingBagIcon } from '@heroicons/react/20/solid';
 import Input from "../components/Layout/Input";
-import Modal from "./Modal";
 import CartContext from "../components/cart/CartContext";
 import {addProduct} from "../components/cart/actions";
 import React, { useRef, useState, useReducer, useContext } from "react";
@@ -38,7 +37,7 @@ export default function Product(props) {
             </p>
           </h3>
 
-          <p className="text-xl font-medium text-pink-500">{props.product.price}</p>
+          <p className="text-xl font-medium text-pink-500">{props.product.price} $</p>
 
         </div>
         <div className=" flex justify-between">

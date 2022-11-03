@@ -157,3 +157,17 @@ a {
   color: #000000 !important;
   text-decoration: underline;
 }
+
+
+@media (min-width: 640px){
+ 
+  .sm\:max-w-lg {
+      max-width: 50rem;
+  }
+}
+
+tbody, td, tfoot, th, thead, tr {
+  border-color: #ddd !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+}
